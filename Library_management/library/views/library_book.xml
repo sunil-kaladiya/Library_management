@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <record id="library_book_form" model="ir.ui.view">
+        <field name="name">library.book</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="author"/>
+                        <field name="isbn"/>
+                        <field name="total"/>
+                        <field name="available_copies"/>
+                        <field name="state"/>
+                        <field name="image"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="library_book_list" model="ir.ui.view">
+        <field name="name">Library Book List</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="name"/>
+                <field name="author"/>
+                <field name="isbn"/>
+                <field name="total"/>
+                <field name="available_copies"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="library_book_search" model="ir.ui.view">
+        <field name="name">Library Book Search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="author"/>
+                <field name="isbn"/>
+                <field name="total"/>
+                <field name="available_copies"/>
+                <field name="state"/>
+            </search>
+        </field>
+    </record>
+
+     <record id="library_book_kanban" model="ir.ui.view">
+        <field name="name">Library Book Kanban</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_card">
+                            <div class="o_kanban_image">
+                                <field name="image" widget="image"/>
+                            </div>
+                            <div class="o_kanban_details">
+                                <strong>
+                                    <h3><b>Book :- <field name="name"/></b></h3>
+                                </strong>
+                            </div>
+                            <footer>
+                                <span>
+                                    <strong>
+                                        <div>Author : <field name="author"/> </div>
+                                        <div>Book Available : <field name="available_copies"/></div>
+                                    </strong>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'available'"
+                                           decoration-danger="state == 'out_of_stock'"/>
+                                </span>
+                            </footer>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
+
+    <record id="action_book_list" model="ir.actions.act_window">
+        <field name="name">library.book</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">kanban,list,form,search</field>
+    </record>
+
+    <menuitem id="book_menu" parent="library_management_root"  name="Books" action="action_book_list"/>
+
+
+</odoo>
